@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meeds/pages/login_page.dart';
 import './signup_page.dart';
 
 class LandingPage extends StatelessWidget {
@@ -18,29 +19,29 @@ class LandingPage extends StatelessWidget {
           const SizedBox(width: double.infinity,),
           Column(
             children: [
+              Image.asset(
+                'assets/images/logo.jpg',
+                scale: 10,
+              ),
               RichText(
                 text: TextSpan(
                   text: 'Welcome to ',
                   style: const TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black
-                  ),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: 'meeds', 
-                      style: TextStyle(
-                          color: green,
-                          fontStyle: FontStyle.italic
-                      )
-                    ),
-                    const TextSpan(text: '!',)
-                  ],
+                  fontSize: 32,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black
                 ),
-              ),
-              Image.asset(
-                'assets/images/logo.jpg',
-                scale: 10,
+                children: <TextSpan>[
+                  TextSpan(
+                    text: 'meeds', 
+                    style: TextStyle(
+                      color: Colors.green,
+                      fontStyle: FontStyle.italic
+                    )
+                  ),
+                  const TextSpan(text: '!',)
+                ],
+                ),
               ),
             ],
           ),
@@ -65,7 +66,7 @@ class LandingPage extends StatelessWidget {
                     )
                   ),
                   ElevatedButton(
-                    onPressed: (){}, 
+                    onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginPage()));}, 
                     style: ElevatedButton.styleFrom(
                       backgroundColor: black,
                       minimumSize: const Size(100, 30),
