@@ -46,33 +46,52 @@ class LandingPage extends StatelessWidget {
           ),
           Column(
             children: [
-              ElevatedButton(
-                onPressed: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SignUpPage()));
-                }, 
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: black
-                ),
-                child: const Text(
-                  'Sign Up',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Montserrat-Bold'
+              Column(
+                children: [
+                  ElevatedButton(
+                    onPressed: (){
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SignUpPage()));
+                    }, 
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: black,
+                      minimumSize: const Size(100, 30),
+                    ),
+                    child: const Text(
+                      'Sign Up',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Montserrat-Bold'
+                      ),
+                    )
                   ),
-                )
-              ),
-              ElevatedButton(
-                onPressed: (){}, 
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: black,
-                ),
-                child: const Text(
-                  'Login',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Montserrat-Bold'
+                  ElevatedButton(
+                    onPressed: (){}, 
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: black,
+                      minimumSize: const Size(100, 30),
+                    ),
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Montserrat-Bold'
+                      ),
+                    )
                   ),
-                )
+                  const Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text('- or -',),
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                     
+                    },
+                    child: Image.asset(
+                      'assets/images/google.png', 
+                      height: 32,
+                    )
+                  )
+                ],
               ),
             ],
           ),
