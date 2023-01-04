@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "409287816828",
+    "project_id": "meeds-94967",
+    "storage_bucket": "meeds-94967.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:409287816828:android:4ff4f2e66e18d6e9c6bbf9",
+        "android_client_info": {
+          "package_name": "com.example.meeds"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "409287816828-2p4aqo0qfusqrcvf9mb0t5qci96luai4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-QXG6_qu4mqI3lPxSRe6RH0iBvJyNIqA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "409287816828-2p4aqo0qfusqrcvf9mb0t5qci96luai4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

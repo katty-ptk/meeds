@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:meeds/screens/signup_page.dart';
+import 'package:provider/provider.dart';
+import '../provider/sign_in_provider.dart';
 import '../widgets/text_logo.dart';
-import '../pages/landing_page.dart';
+import '../screens/landing_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -10,9 +13,23 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String email_text = "";
+  String password_text = "";
+
   @override
   Widget build(BuildContext context) {
     final keyboard_open = MediaQuery.of(context).viewInsets.bottom == 0;  // check if keyboard is open or not
+
+    handleLogin() {
+      final sp = context.read<SignInProvider>();
+      
+      if ( email_text != "" && password_text != "" ) {
+        print(email_text + " and " + password_text);
+        sp.loginUser(email_text, password_text, context);
+      } else {
+        print("no change:/");
+      }
+    }
 
     return Scaffold(
                   body: Stack(children: <Widget>[
@@ -55,6 +72,11 @@ class _LoginPageState extends State<LoginPage> {
                                         child: Text('email:'),
                                       ),
                                       TextField(
+                                        onChanged: (value) {
+                                          setState(() {
+                                            email_text = value.characters.toString();
+                                          });
+                                        },
                                         decoration: InputDecoration(
                                           hintText: 'ex: example@domain.com',
                                           enabledBorder: UnderlineInputBorder(      
@@ -78,6 +100,11 @@ class _LoginPageState extends State<LoginPage> {
                                     children: [
                                       Text('password:'),
                                       TextField(
+                                        onChanged: (value) {
+                                          setState(() {
+                                            password_text = value.characters.toString();
+                                          });
+                                        },
                                         decoration: InputDecoration(
                                           hintText: '********',
                                           enabledBorder: UnderlineInputBorder(      
@@ -108,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                                         )),
                                         GestureDetector(
                                           onTap: (){
-                                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginPage()));
+                                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SignUpPage()));
                                           },
                                           child: Text(' Sign Up', style: TextStyle(
                                             color: Colors.green[600],
@@ -130,7 +157,9 @@ class _LoginPageState extends State<LoginPage> {
                         child: Align(
                         alignment: FractionalOffset.bottomCenter,
                         child: GestureDetector(
-                          onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LandingPage()));},
+                          onTap: (){
+                            handleLogin();
+                          },
                           child: Container(
                             // color: Colors.black,
                             width: double.infinity,
