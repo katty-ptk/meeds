@@ -1,14 +1,11 @@
 // ignore_for_file: unused_local_variable
 
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meeds/screens/home_screen.dart';
-import 'package:meeds/screens/login_page.dart';
 import 'package:meeds/utils/next_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

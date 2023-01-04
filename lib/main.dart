@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
-import 'package:meeds/provider/internet_provider.dart';
 import 'package:meeds/provider/sign_in_provider.dart';
 import 'package:meeds/screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -20,7 +19,6 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => SignInProvider()),
-        ChangeNotifierProvider(create: (context) => InternetProvider())
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

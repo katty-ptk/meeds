@@ -3,7 +3,6 @@ import 'package:meeds/screens/signup_page.dart';
 import 'package:provider/provider.dart';
 import '../provider/sign_in_provider.dart';
 import '../widgets/text_logo.dart';
-import '../screens/landing_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
