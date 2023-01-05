@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meeds/screens/home_screen.dart';
 import 'package:meeds/utils/next_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,7 +11,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SignInProvider extends ChangeNotifier {
   // instances
   final FirebaseAuth auth = FirebaseAuth.instance;
-  final GoogleSignIn googleSignIn = GoogleSignIn();
 
   bool _isSignedIn = false;
   bool get isSignedIn => _isSignedIn;
@@ -21,6 +19,17 @@ class SignInProvider extends ChangeNotifier {
   SignInProvider() {
     checkSignInUser();
   }
+
+  signInUser(context) async {
+      final SharedPreferences s = await SharedPreferences.getInstance();
+
+      if ( _isSignedIn == true ) {
+        s.setBool("signed_in", true);  
+        nextScreenReplace(context, HomeScreen());
+      } else {
+        print("problem :/");
+      }
+    }
 
   Future signUpUser( String email, String password, context) async {
     try {
@@ -33,15 +42,12 @@ class SignInProvider extends ChangeNotifier {
         final _uid = await _user.uid;
         final _email = await _user.email;
 
-        //List values = nums.split(".");
-        // final _name = await _user.email!.substring(-1, _user.email!.indexOf('@'));
         List _nameList = await _user.email!.split("@");
         final _name = _nameList[0];
         
+        await this.checkSignInUser();
         await this.saveUserToFirestore(_name, _email, _uid);
-
-        // go to homescreen
-        nextScreenReplace(context, HomeScreen());
+        await this.signInUser(context);
       } on FirebaseAuthException catch (e) {
         if (e.code == 'weak-password') {
           print('The password provided is too weak.');
@@ -60,7 +66,8 @@ class SignInProvider extends ChangeNotifier {
         password: password
       );
 
-      nextScreenReplace(context, HomeScreen());
+      await this.checkSignInUser();
+      await this.signInUser(context);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -73,8 +80,14 @@ class SignInProvider extends ChangeNotifier {
   }
 
   Future checkSignInUser() async {
-    final SharedPreferences s = await SharedPreferences.getInstance();
-    _isSignedIn = s.getBool("signed_in") ?? false;
+      final SharedPreferences s = await SharedPreferences.getInstance();
+
+    if ( auth.currentUser != null || s.getBool("signed_in") == true) {
+      _isSignedIn = true;
+    } else {
+      _isSignedIn = false;
+    }
+
     notifyListeners();
   }
 

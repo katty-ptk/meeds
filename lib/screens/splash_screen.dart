@@ -31,8 +31,8 @@ class _SplashScreenState extends State<SplashScreen>
     // timer for 2 seconds
     Timer(const Duration(seconds: 2), () {
       sp.isSignedIn
-          ? nextScreen(context, HomeScreen())
-          : nextScreen(context, LandingPage());
+          ? nextScreenReplace(context, HomeScreen())
+          : nextScreenReplace(context, LandingPage());
     });
     _controller.forward();
   }

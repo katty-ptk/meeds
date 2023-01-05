@@ -11,8 +11,15 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  String _name = FirebaseAuth.instance.currentUser != null ? FirebaseAuth.instance.currentUser!.email.toString() : "asd";
+
   @override
   Widget build(BuildContext context) {
+    if ( FirebaseAuth.instance.currentUser != null ) {
+      _name = FirebaseAuth.instance.currentUser!.email.toString();
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Meeds Home Screen!"),
@@ -22,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              FirebaseAuth.instance.currentUser!.email.toString()
+              "${_name}"
             ),
             ElevatedButton(onPressed: (){
               FirebaseAuth.instance.signOut();
