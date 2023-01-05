@@ -1,10 +1,10 @@
 // ignore_for_file: unused_local_variable
-
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:meeds/screens/home_screen.dart';
+import 'package:meeds/screens/login_page.dart';
+import 'package:meeds/screens/signup_page.dart';
 import 'package:meeds/utils/next_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,74 +15,122 @@ class SignInProvider extends ChangeNotifier {
   bool _isSignedIn = false;
   bool get isSignedIn => _isSignedIn;
 
-
   SignInProvider() {
     checkSignInUser();
   }
 
-  signInUser(context) async {
-      final SharedPreferences s = await SharedPreferences.getInstance();
+  showSnackbar(message, label_text, context) {
+    final snackBar = SnackBar(
+      content: Row(children: [
+        Icon(Icons.error_outline, size: 32,),
+        SizedBox(width: 16,),
+        Expanded(child: Text(
+          message,
+        ))
+      ],),
+      action: SnackBarAction(
+        label: label_text,
+        onPressed: () {
+          switch ( label_text ) {
+            case "Login":
+              nextScreen(context, LoginPage());
+              break;
 
-      if ( _isSignedIn == true ) {
-        s.setBool("signed_in", true);  
-        nextScreenReplace(context, HomeScreen());
-      } else {
-        print("problem :/");
-      }
-    }
+            case "SignUp":
+              nextScreen(context, SignUpPage());
+              break;
 
-  Future signUpUser( String email, String password, context) async {
-    try {
-        final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: email,
-          password: password,
-        );
+            default:
+              print("error ${message}");
+          }
+        },
+      ),
+      margin: EdgeInsets.symmetric(vertical: 100, horizontal: 12),
+      behavior: SnackBarBehavior.floating,
+      backgroundColor: Colors.red[700],
+    );
 
-        final _user = await credential.user!;
-        final _uid = await _user.uid;
-        final _email = await _user.email;
-
-        List _nameList = await _user.email!.split("@");
-        final _name = _nameList[0];
-        
-        await this.checkSignInUser();
-        await this.saveUserToFirestore(_name, _email, _uid);
-        await this.signInUser(context);
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'weak-password') {
-          print('The password provided is too weak.');
-        } else if (e.code == 'email-already-in-use') {
-          print('The account already exists for that email.');
-        }
-      } catch (e) {
-        print(e);
-      }
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  Future loginUser( String email, String password, context ) async {
+  signInUser(context) async {
+    final SharedPreferences s = await SharedPreferences.getInstance();
+
+    if (_isSignedIn == true) {
+      s.setBool("signed_in", true);
+      nextScreenReplace(context, HomeScreen());
+    } else {
+      print("problem :/");
+    }
+  }
+
+  Future signUpUser(String email, String password, context) async {
     try {
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
-        password: password
+        password: password,
       );
+
+      final _user = await credential.user!;
+      final _uid = await _user.uid;
+      final _email = await _user.email;
+
+      List _nameList = await _user.email!.split("@");
+      final _name = _nameList[0];
+
+      await this.checkSignInUser();
+      await this.saveUserToFirestore(_name, _email, _uid);
+      await this.signInUser(context);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        showSnackbar(
+          "Weak Password.", 
+          "Try Again", 
+          context
+        );
+      } else if (e.code == 'email-already-in-use') {
+        showSnackbar(
+          "This email is already in use.", 
+          "Login", 
+          context
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future loginUser(String email, String password, context) async {
+    try {
+      final credential = await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: email, password: password);
 
       await this.checkSignInUser();
       await this.signInUser(context);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        print('No user found for that email.');
+        showSnackbar(
+          "No account found for this email.", 
+          "SignUp", 
+          context
+        );
       } else if (e.code == 'wrong-password') {
-        print('Wrong password provided for that user.');
+        showSnackbar(
+          "Wrong Password", 
+          "Try Again", 
+          context
+        );
       }
-    } catch ( e ) {
-      print ( e );
+    } catch (e) {
+      print(e);
     }
   }
 
   Future checkSignInUser() async {
-      final SharedPreferences s = await SharedPreferences.getInstance();
+    final SharedPreferences s = await SharedPreferences.getInstance();
 
-    if ( auth.currentUser != null || s.getBool("signed_in") == true) {
+    if (auth.currentUser != null || s.getBool("signed_in") == true) {
       _isSignedIn = true;
     } else {
       _isSignedIn = false;
@@ -112,17 +160,18 @@ class SignInProvider extends ChangeNotifier {
         .doc(uid)
         .get()
         .then((DocumentSnapshot snapshot) {
-          // _uid  = snapshot['uid'];
-          // _email  = snapshot['email'];
-          // _name  = snapshot['name'];
-          // _provider  = snapshot['provider'];
-          // _imageURL  = snapshot['image_url'];
-        });
+      // _uid  = snapshot['uid'];
+      // _email  = snapshot['email'];
+      // _name  = snapshot['name'];
+      // _provider  = snapshot['provider'];
+      // _imageURL  = snapshot['image_url'];
+    });
   }
 
   // save user to firestore
-  Future saveUserToFirestore(name, email, uid ) async {
-    final DocumentReference r = FirebaseFirestore.instance.collection("users").doc(uid);
+  Future saveUserToFirestore(name, email, uid) async {
+    final DocumentReference r =
+        FirebaseFirestore.instance.collection("users").doc(uid);
 
     await r.set({
       "name": name,
