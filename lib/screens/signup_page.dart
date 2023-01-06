@@ -1,18 +1,34 @@
 import 'package:flutter/material.dart';
-import '../widgets/text_logo.dart';
-import '../pages/landing_page.dart';
+import 'package:meeds/provider/sign_in_provider.dart';
+import 'package:meeds/screens/login_page.dart';
+import 'package:meeds/widgets/text_logo.dart';
+import 'package:provider/provider.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignUpPageState extends State<SignUpPage> {
+  String email_text = "";
+  String password_text = "";
+
   @override
   Widget build(BuildContext context) {
     final keyboard_open = MediaQuery.of(context).viewInsets.bottom == 0;  // check if keyboard is open or not
+
+    handleSignUp() {
+      final sp = context.read<SignInProvider>();
+      
+      if ( email_text != "" && password_text != "" ) {
+        print(email_text + " and " + password_text);
+        sp.signUpUser(email_text, password_text, context);
+      } else {
+        print("no change:/");
+      }
+    }
 
     return Scaffold(
                   body: Stack(children: <Widget>[
@@ -33,12 +49,10 @@ class _LoginPageState extends State<LoginPage> {
                         elevation: 0.0, //No shadow
                       ),),
                       
-    
-      
                       ListView(
                         padding: EdgeInsets.only(top: 150),
                         children: [
-                          SafeArea(child: Center(child: TextLogo(title: 'Login'))),
+                          SafeArea(child: Center(child: TextLogo(title: 'Sign Up'))),
                           Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -50,13 +64,15 @@ class _LoginPageState extends State<LoginPage> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 80),
-                                        child: Text('email:'),
-                                      ),
-                                      TextField(
+                                      SizedBox(height: 30,),
+                                      TextFormField(
+                                        onChanged: (text) {
+                                          setState(() {
+                                            email_text = text.characters.toString();
+                                          });
+                                        },
                                         decoration: InputDecoration(
-                                          hintText: 'ex: example@domain.com',
+                                          labelText: 'email',
                                           enabledBorder: UnderlineInputBorder(      
                                             borderSide: BorderSide(color: Colors.black),   
                                           ),  
@@ -64,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                                             borderSide: BorderSide(color: Colors.black, width: 2),
                                           ),
                                         ),
-                                      )
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -76,10 +92,14 @@ class _LoginPageState extends State<LoginPage> {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('password:'),
-                                      TextField(
-                                        decoration: InputDecoration(
-                                          hintText: '********',
+                                      TextFormField(
+                                       onChanged: ( text ) {
+                                        setState(() {
+                                          password_text = text.characters.toString();
+                                        });
+                                       },
+                                       decoration: InputDecoration(
+                                          labelText: 'password',
                                           enabledBorder: UnderlineInputBorder(      
                                             borderSide: BorderSide(color: Colors.black),   
                                           ),  
@@ -102,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         SizedBox(height: 30,),
-                                        Text('Don\'t have an account yet?',  style: TextStyle(
+                                        Text('Already have an account?',  style: TextStyle(
                                           fontWeight: FontWeight.w500,
                                           fontFamily: 'Montserrat-Bold'
                                         )),
@@ -110,7 +130,7 @@ class _LoginPageState extends State<LoginPage> {
                                           onTap: (){
                                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginPage()));
                                           },
-                                          child: Text(' Sign Up', style: TextStyle(
+                                          child: Text(' Login', style: TextStyle(
                                             color: Colors.green[600],
                                             fontWeight: FontWeight.bold,
                                             fontFamily: 'Montserrat',
@@ -130,7 +150,9 @@ class _LoginPageState extends State<LoginPage> {
                         child: Align(
                         alignment: FractionalOffset.bottomCenter,
                         child: GestureDetector(
-                          onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LandingPage()));},
+                          onTap: (){
+                            handleSignUp();
+                          },
                           child: Container(
                             // color: Colors.black,
                             width: double.infinity,
@@ -145,5 +167,5 @@ class _LoginPageState extends State<LoginPage> {
                       ) 
                   ]),
       );
-   }
+  }
 }

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:meeds/pages/login_page.dart';
+import 'package:meeds/screens/login_page.dart';
+import 'package:meeds/utils/next_screen.dart';
 import './signup_page.dart';
 
 class LandingPage extends StatelessWidget {
-  const LandingPage({super.key});
+  LandingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     Color green = Colors.green.shade600;
     Color black = Colors.black87;
-
+    
     return Scaffold(
       body: Flex(
         direction: Axis.vertical,
@@ -51,7 +52,7 @@ class LandingPage extends StatelessWidget {
                 children: [
                   ElevatedButton(
                     onPressed: (){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SignUpPage()));
+                      nextScreen(context, SignUpPage());
                     }, 
                     style: ElevatedButton.styleFrom(
                       backgroundColor: black,
@@ -66,7 +67,9 @@ class LandingPage extends StatelessWidget {
                     )
                   ),
                   ElevatedButton(
-                    onPressed: (){Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginPage()));}, 
+                    onPressed: (){
+                      nextScreen(context, LoginPage());
+                    }, 
                     style: ElevatedButton.styleFrom(
                       backgroundColor: black,
                       minimumSize: const Size(100, 30),
@@ -84,9 +87,7 @@ class LandingPage extends StatelessWidget {
                     child: Text('- or -',),
                   ),
                   GestureDetector(
-                    onTap: (){
-                     
-                    },
+                    onTap: (){  },
                     child: Image.asset(
                       'assets/images/google.png', 
                       height: 32,

@@ -1,19 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:meeds/pages/landing_page.dart';
-import 'package:meeds/pages/login_page.dart';
-import 'package:meeds/widgets/text_logo.dart';
+import 'package:meeds/screens/signup_page.dart';
+import 'package:provider/provider.dart';
+import '../provider/sign_in_provider.dart';
+import '../widgets/text_logo.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _LoginPageState extends State<LoginPage> {
+  String email_text = "";
+  String password_text = "";
+
   @override
   Widget build(BuildContext context) {
     final keyboard_open = MediaQuery.of(context).viewInsets.bottom == 0;  // check if keyboard is open or not
+
+    handleLogin() {
+      final sp = context.read<SignInProvider>();
+      
+      if ( email_text != "" && password_text != "" ) {
+        print(email_text + " and " + password_text);
+        sp.loginUser(email_text, password_text, context);
+      } else {
+        print("no change:/");
+      }
+    }
 
     return Scaffold(
                   body: Stack(children: <Widget>[
@@ -39,7 +54,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       ListView(
                         padding: EdgeInsets.only(top: 150),
                         children: [
-                          SafeArea(child: Center(child: TextLogo(title: 'Sign Up'))),
+                          SafeArea(child: Center(child: TextLogo(title: 'Login'))),
                           Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -56,6 +71,11 @@ class _SignUpPageState extends State<SignUpPage> {
                                         child: Text('email:'),
                                       ),
                                       TextField(
+                                        onChanged: (value) {
+                                          setState(() {
+                                            email_text = value.characters.toString();
+                                          });
+                                        },
                                         decoration: InputDecoration(
                                           hintText: 'ex: example@domain.com',
                                           enabledBorder: UnderlineInputBorder(      
@@ -79,6 +99,11 @@ class _SignUpPageState extends State<SignUpPage> {
                                     children: [
                                       Text('password:'),
                                       TextField(
+                                        onChanged: (value) {
+                                          setState(() {
+                                            password_text = value.characters.toString();
+                                          });
+                                        },
                                         decoration: InputDecoration(
                                           hintText: '********',
                                           enabledBorder: UnderlineInputBorder(      
@@ -103,15 +128,15 @@ class _SignUpPageState extends State<SignUpPage> {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
                                         SizedBox(height: 30,),
-                                        Text('Already have an account?',  style: TextStyle(
+                                        Text('Don\'t have an account yet?',  style: TextStyle(
                                           fontWeight: FontWeight.w500,
                                           fontFamily: 'Montserrat-Bold'
                                         )),
                                         GestureDetector(
                                           onTap: (){
-                                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginPage()));
+                                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SignUpPage()));
                                           },
-                                          child: Text(' Login', style: TextStyle(
+                                          child: Text(' Sign Up', style: TextStyle(
                                             color: Colors.green[600],
                                             fontWeight: FontWeight.bold,
                                             fontFamily: 'Montserrat',
@@ -131,7 +156,9 @@ class _SignUpPageState extends State<SignUpPage> {
                         child: Align(
                         alignment: FractionalOffset.bottomCenter,
                         child: GestureDetector(
-                          onTap: (){Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LandingPage()));},
+                          onTap: (){
+                            handleLogin();
+                          },
                           child: Container(
                             // color: Colors.black,
                             width: double.infinity,
@@ -146,5 +173,5 @@ class _SignUpPageState extends State<SignUpPage> {
                       ) 
                   ]),
       );
-  }
+   }
 }
