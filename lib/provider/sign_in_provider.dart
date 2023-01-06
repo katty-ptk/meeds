@@ -2,10 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:meeds/screens/home_screen.dart';
+import 'package:meeds/screens/app/home_screen.dart';
+import 'package:meeds/screens/landing_page.dart';
 import 'package:meeds/screens/login_page.dart';
 import 'package:meeds/screens/signup_page.dart';
 import 'package:meeds/utils/next_screen.dart';
+import 'package:meeds/widgets/bnb_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInProvider extends ChangeNotifier {
@@ -58,7 +60,7 @@ class SignInProvider extends ChangeNotifier {
 
     if (_isSignedIn == true) {
       s.setBool("signed_in", true);
-      nextScreenReplace(context, HomeScreen());
+      nextScreenReplace(context, NavigationScreen());
     } else {
       print("problem :/");
     }
@@ -180,5 +182,16 @@ class SignInProvider extends ChangeNotifier {
     });
 
     // notifyListeners();
+  }
+
+  Future signOutUser(context) async {
+    final SharedPreferences s = await SharedPreferences.getInstance();
+
+    await FirebaseAuth.instance.signOut();
+    await s.setBool("signed_in", false);
+    _isSignedIn = false;
+
+    notifyListeners();
+    nextScreenReplace(context, LandingPage());
   }
 }

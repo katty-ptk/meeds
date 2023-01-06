@@ -1,10 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:meeds/provider/sign_in_provider.dart';
-import 'package:meeds/screens/home_screen.dart';
+import 'package:meeds/screens/app/home_screen.dart';
 import 'package:meeds/screens/landing_page.dart';
 import 'package:meeds/utils/config.dart';
 import 'package:meeds/utils/next_screen.dart';
+import 'package:meeds/widgets/bnb_screen.dart';
 import 'package:provider/provider.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -31,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen>
     // timer for 2 seconds
     Timer(const Duration(seconds: 2), () {
       sp.isSignedIn
-          ? nextScreenReplace(context, HomeScreen())
+          ? nextScreenReplace(context, NavigationScreen())
           : nextScreenReplace(context, LandingPage());
     });
     _controller.forward();
