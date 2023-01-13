@@ -28,7 +28,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
       bottomNavigationBar: CurvedNavigationBar(
         height: 65,
         backgroundColor: Colors.white,
-        color: Colors.green.shade100,
+        color: Color.fromARGB(255, 201, 175, 206),
         buttonBackgroundColor: Colors.white,
         animationDuration: Duration(milliseconds: 300),
         index: 0,
