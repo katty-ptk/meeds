@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meeds/screens/app/home_screen.dart';
-import 'package:meeds/screens/app/profile/profile.dart';
 import 'package:meeds/utils/meeds_colors.dart';
 import 'package:meeds/utils/next_screen.dart';
 import 'package:meeds/widgets/bnb_screen.dart';

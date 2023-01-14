@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meeds/screens/app/add_new/journal_entries/empty_journal_entry.dart';
 import 'package:meeds/screens/app/add_new/journal_entries/select_journal_entry.dart';
 import 'package:meeds/screens/app/profile/profile.dart';
 
