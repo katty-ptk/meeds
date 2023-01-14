@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meeds/screens/login_page.dart';
+import 'package:meeds/screens/start/login_page.dart';
 import 'package:meeds/utils/next_screen.dart';
 import './signup_page.dart';
 

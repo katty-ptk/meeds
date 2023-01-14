@@ -2,10 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:meeds/screens/app/home_screen.dart';
-import 'package:meeds/screens/landing_page.dart';
-import 'package:meeds/screens/login_page.dart';
-import 'package:meeds/screens/signup_page.dart';
+import 'package:meeds/screens/start/landing_page.dart';
+import 'package:meeds/screens/start/login_page.dart';
+import 'package:meeds/screens/start/signup_page.dart';
 import 'package:meeds/utils/next_screen.dart';
 import 'package:meeds/widgets/bnb_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
