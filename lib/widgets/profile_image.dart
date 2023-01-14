@@ -38,7 +38,7 @@ class ProfileImageBG extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: avatarHeight / 2,
-            backgroundImage: NetworkImage("https://scontent.fomr1-1.fna.fbcdn.net/v/t1.6435-9/108016846_1675963819218649_6868067377403521169_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=174925&_nc_ohc=Lzid33mSv4wAX9sOsQA&_nc_ht=scontent.fomr1-1.fna&oh=00_AfDf0KbwTq5Balw4G7pj1Wq4XPmQYpSeV7SsaQAiwCRHDA&oe=63E91A7D"),
+            backgroundImage: NetworkImage("https://scontent.fomr1-1.fna.fbcdn.net/v/t1.6435-9/79871973_1487365728078460_2860243654138658816_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=174925&_nc_ohc=h2JTW9ylC28AX96FtMa&_nc_ht=scontent.fomr1-1.fna&oh=00_AfDXJkxZtKazrADgolwb3OVhHKVsG1VZi0I_z_lYs4gAPQ&oe=63E9B98C"),
           ),
           SizedBox(height: 10,),
         ],
@@ -55,7 +55,7 @@ class ProfileImageBG extends StatelessWidget {
                   child: buildProfileImage()
                 ),
                 Positioned(
-                    top: 60,
+                    top: 30,
                     right: 15,
                     child: Icon(Icons.settings, size: 36, color: Colors.white,)
                 ),

@@ -40,7 +40,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return Scaffold(
       body: SafeArea(
-        child: ListView(
+        child: Flex(
+        direction: Axis.vertical,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ProfileImageBG(),
             Padding(
@@ -57,16 +60,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
             
             ElevatedButton(
-              onPressed: handleLogout,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Color.fromARGB(255, 124, 95, 188),
-                elevation: 3,
-                shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0)),
-                minimumSize: Size(10, 40), //////// HERE
+              onPressed: handleLogout, 
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.purple.shade200),
               ),
-              child: Text('Logout'),
-            ),
+              child: Text("Logout")
+            )
           ],
         ),
       )
