@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meeds/provider/sign_in_provider.dart';
+import 'package:meeds/screens/app/profile/tabs/jourmal.dart';
+import 'package:meeds/utils/next_screen.dart';
 import 'package:meeds/widgets/profile_image.dart';
 import 'package:provider/provider.dart';
 
@@ -20,10 +22,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
       await sp.signOutUser(context);
     }
 
-    Widget buildOption( String text ) {
+    Widget buildOption( String text, Widget page ) {
       return GestureDetector(
         onTap: () {
-          print("tap on option");
+          nextScreen(context, page);
         },
         child: Stack(
           children: [
@@ -50,11 +52,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: EdgeInsets.only(top: 120, left: 30, right: 30),
               child: Column(
                 children: [
-                  buildOption("Journal entries"),
+                  buildOption("Journal entries", JournalEntries()),
                   SizedBox(height: 20,),
-                  buildOption("Daily Reminders"),
+                  buildOption("Daily Reminders", JournalEntries()),
                   SizedBox(height: 20,),
-                  buildOption("Medication"),
+                  buildOption("Medication", JournalEntries()),
                 ],
               ),
             ),

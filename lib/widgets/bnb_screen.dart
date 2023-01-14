@@ -2,7 +2,7 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:meeds/screens/app/add_meds.dart';
 import 'package:meeds/screens/app/home_screen.dart';
-import 'package:meeds/screens/app/profile.dart';
+import 'package:meeds/screens/app/profile/profile.dart';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({super.key});

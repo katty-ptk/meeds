@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:meeds/provider/sign_in_provider.dart';
-import 'package:meeds/screens/landing_page.dart';
+import 'package:meeds/screens/start/landing_page.dart';
 import 'package:meeds/utils/config.dart';
 import 'package:meeds/utils/next_screen.dart';
 import 'package:meeds/widgets/bnb_screen.dart';
