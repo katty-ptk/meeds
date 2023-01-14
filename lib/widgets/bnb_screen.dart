@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:meeds/screens/app/add_meds.dart';
 import 'package:meeds/screens/app/home_screen.dart';
 import 'package:meeds/screens/app/profile/profile.dart';
+import 'package:meeds/utils/colors.dart';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({super.key});
@@ -28,7 +29,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
       bottomNavigationBar: CurvedNavigationBar(
         height: 65,
         backgroundColor: Colors.white,
-        color: Color.fromARGB(255, 201, 175, 206),
+        color: MyColors.dark_purple,
         buttonBackgroundColor: Colors.white,
         animationDuration: Duration(milliseconds: 300),
         index: 0,
@@ -36,9 +37,9 @@ class _NavigationScreenState extends State<NavigationScreen> {
           tab_index = index;
         }),
         items: [
-          Icon(Icons.home_filled),
-          Icon(Icons.add_circle_sharp),
-          Icon(Icons.person)
+          Icon(Icons.home_filled, color: tab_index == 0 ? Colors.black : Colors.white,),
+          Icon(Icons.add_circle_sharp, color: tab_index == 1 ? Colors.black : Colors.white,),
+          Icon(Icons.person, color: tab_index == 2 ? Colors.black : Colors.white,)
         ],
       ),
     );

@@ -7,7 +7,7 @@ class ProfileImageBG extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double coverHeight = 300;
+    final double coverHeight = 230;
     final double avatarHeight = 144;
     final top = coverHeight - avatarHeight / 2;
 
@@ -38,7 +38,7 @@ class ProfileImageBG extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: avatarHeight / 2,
-            backgroundImage: NetworkImage("https://scontent.fomr1-1.fna.fbcdn.net/v/t1.6435-9/79871973_1487365728078460_2860243654138658816_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=174925&_nc_ohc=h2JTW9ylC28AX96FtMa&_nc_ht=scontent.fomr1-1.fna&oh=00_AfDXJkxZtKazrADgolwb3OVhHKVsG1VZi0I_z_lYs4gAPQ&oe=63E9B98C"),
+            backgroundImage: NetworkImage("https://blog-pixomatic.s3.appcnt.com/image/22/01/26/61f166e07f452/_orig/pixomatic_1572877263963.png"),
           ),
           SizedBox(height: 10,),
         ],

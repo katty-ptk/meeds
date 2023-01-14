@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meeds/provider/sign_in_provider.dart';
 import 'package:meeds/screens/app/profile/tabs/jourmal.dart';
+import 'package:meeds/utils/colors.dart';
 import 'package:meeds/utils/next_screen.dart';
 import 'package:meeds/widgets/profile_image.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +35,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               // fontWeight: FontWeight.bold
             ),),
             Positioned(right: 10, child: Icon(Icons.navigate_next_outlined)),
-            Divider(thickness: 2, height: 60, color: Colors.purple,)
+            Divider(thickness: 2, height: 60, color: MyColors.light_pink,)
           ],
         ),
       );
@@ -64,7 +65,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ElevatedButton(
               onPressed: handleLogout, 
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.purple.shade200),
+                backgroundColor: MaterialStateProperty.all(MyColors.dark_purple),
               ),
               child: Text("Logout")
             )
