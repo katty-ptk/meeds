@@ -50,7 +50,7 @@ class SignInProvider extends ChangeNotifier {
 
       await this.saveUserToFirestore(_name, _email, _uid);
       await this.getUserDataFromFirestore(_uid);
-      await this.signInUser(context);
+      await this.signInUser(context, _email, _name, _uid);
       await this.checkSignInUser();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -76,9 +76,11 @@ class SignInProvider extends ChangeNotifier {
       final credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
 
+      final _user = credential.user;
+
       await this.getUserDataFromFirestore(credential.user?.uid);
       await this.checkSignInUser();
-      await this.signInUser(context);
+      await this.signInUser(context, _user_email, _user_name, _user_uid);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         showSnackbar(
@@ -98,15 +100,14 @@ class SignInProvider extends ChangeNotifier {
     }
   }
 
-  signInUser(context) async {
+  signInUser(context, email, name, uid) async {
     final SharedPreferences s = await SharedPreferences.getInstance();
 
-    if (_isSignedIn == true) {
-      s.setBool("signed_in", true);
-      nextScreenReplace(context, NavigationScreen());
-    } else {
-      print("problem :/");
-    }
+    await s.setString("email", email);
+    await s.setString("name", name);
+    await s.setString("uid", uid);
+    nextScreenReplace(context, NavigationScreen());
+    notifyListeners();
   }
   
   Future saveUserToFirestore(name, email, uid) async {
@@ -150,8 +151,11 @@ class SignInProvider extends ChangeNotifier {
   Future checkSignInUser() async {
     final SharedPreferences s = await SharedPreferences.getInstance();
 
-    if (auth.currentUser != null || s.getBool("signed_in") == true) {
+    if (s.containsKey("email") && s.containsKey("name") && s.containsKey("uid") ) {
       _isSignedIn = true;
+      _user_email = s.getString("email").toString();
+      _user_name = s.getString("name").toString();
+      _user_uid = s.getString("uid").toString();
     } else {
       _isSignedIn = false;
     }
@@ -165,6 +169,9 @@ class SignInProvider extends ChangeNotifier {
 
     await FirebaseAuth.instance.signOut();
     await s.setBool("signed_in", false);
+    await s.remove("email");
+    await s.remove("name");
+    await s.remove("uid");
     _isSignedIn = false;
 
     notifyListeners();
