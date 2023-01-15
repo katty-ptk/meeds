@@ -10,7 +10,7 @@ class Storage {
     File file = File(filePath);
 
     try {
-      await storage.ref("test/$fileName").putFile(file);
+      await storage.ref("/profile_pictures/$fileName").putFile(file);
 
     } on firebase_core.FirebaseException catch ( error ) {
       print (error);
