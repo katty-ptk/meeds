@@ -29,6 +29,9 @@ class SignInProvider extends ChangeNotifier {
   String _user_uid = "";
   String get userUid => _user_uid;
 
+  String _user_profile_pic = "";
+  String get userProfilePic => _user_profile_pic;
+
   SignInProvider() {
     checkSignInUser();
   }
@@ -50,7 +53,13 @@ class SignInProvider extends ChangeNotifier {
 
       await this.saveUserToFirestore(_name, _email, _uid);
       await this.getUserDataFromFirestore(_uid);
-      await this.signInUser(context, _email, _name, _uid);
+      await this.signInUser(
+        context, 
+        _email,
+        _name, 
+        _uid, 
+        "https://firebasestorage.googleapis.com/v0/b/meeds-94967.appspot.com/o/test%2Flogo.jpg?alt=media&token=df207e5a-8097-4ab9-8dc1-3f72e04f21fc"
+      );
       await this.checkSignInUser();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -80,7 +89,7 @@ class SignInProvider extends ChangeNotifier {
 
       await this.getUserDataFromFirestore(credential.user?.uid);
       await this.checkSignInUser();
-      await this.signInUser(context, _user_email, _user_name, _user_uid);
+      await this.signInUser(context, _user_email, _user_name, _user_uid, _user_profile_pic);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         showSnackbar(
@@ -100,12 +109,13 @@ class SignInProvider extends ChangeNotifier {
     }
   }
 
-  signInUser(context, email, name, uid) async {
+  signInUser(context, email, name, uid, photoURL) async {
     final SharedPreferences s = await SharedPreferences.getInstance();
 
     await s.setString("email", email);
     await s.setString("name", name);
     await s.setString("uid", uid);
+    await s.setString("photoURL", photoURL);
     nextScreenReplace(context, NavigationScreen());
     notifyListeners();
   }
@@ -118,6 +128,7 @@ class SignInProvider extends ChangeNotifier {
       "name": name,
       "email": email,
       "uid": uid,
+      "photoURL": "https://firebasestorage.googleapis.com/v0/b/meeds-94967.appspot.com/o/profile_pictures%2Flogo.jpg?alt=media&token=eb721228-0d83-4ef4-814f-72a363b37f35"
     });
 
     // notifyListeners();
@@ -132,6 +143,7 @@ class SignInProvider extends ChangeNotifier {
           _user_uid  = snapshot['uid'];
           _user_name  = snapshot['name'];
           _user_email  = snapshot['email'];
+          _user_profile_pic  = snapshot['photoURL'];
     });
   }
 
@@ -153,9 +165,10 @@ class SignInProvider extends ChangeNotifier {
 
     if (s.containsKey("email") && s.containsKey("name") && s.containsKey("uid") ) {
       _isSignedIn = true;
-      _user_email = s.getString("email").toString();
-      _user_name = s.getString("name").toString();
-      _user_uid = s.getString("uid").toString();
+      _user_email = await s.getString("email").toString();
+      _user_name = await s.getString("name").toString();
+      _user_uid = await s.getString("uid").toString();
+      _user_profile_pic = await s.getString("photoURL").toString();
     } else {
       _isSignedIn = false;
     }
@@ -227,7 +240,8 @@ class SignInProvider extends ChangeNotifier {
     final fileName = _user_email;
 
     storage.uploadToCloud(filePath, fileName).then(
-      print ("doone:D")
+      print ("doone:D"),
+      this.showSnackbar("To see the changes, logout and login again.", "", context)
     );
   }
 }

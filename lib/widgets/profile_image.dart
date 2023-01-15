@@ -50,7 +50,7 @@ class ProfileImageBG extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: avatarHeight / 2,
-            backgroundImage: NetworkImage("https://firebasestorage.googleapis.com/v0/b/meeds-94967.appspot.com/o/test%2Fmac%40book.com?alt=media&token=173d4ccf-8c03-401e-ac08-300542201573"),
+            backgroundImage: NetworkImage(sp.userProfilePic),
           ),
           SizedBox(height: 10,),
         ],
