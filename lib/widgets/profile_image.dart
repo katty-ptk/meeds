@@ -2,6 +2,8 @@
 
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:meeds/provider/sign_in_provider.dart';
+import 'package:provider/provider.dart';
 
 class ProfileImageBG extends StatelessWidget {
   String? text;
@@ -10,6 +12,8 @@ class ProfileImageBG extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sp = context.read<SignInProvider>();
+
     final double coverHeight = 200;
     final double avatarHeight = 144;
     final top = coverHeight - avatarHeight / 2;
@@ -46,7 +50,7 @@ class ProfileImageBG extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: avatarHeight / 2,
-            backgroundImage: NetworkImage("https://blog-pixomatic.s3.appcnt.com/image/22/01/26/61f166e07f452/_orig/pixomatic_1572877263963.png"),
+            backgroundImage: NetworkImage("https://firebasestorage.googleapis.com/v0/b/meeds-94967.appspot.com/o/test%2Feusunt_eu?alt=media&token=a8a85245-5a9e-4709-a855-2192222e0716"),
           ),
           SizedBox(height: 10,),
         ],
@@ -66,7 +70,13 @@ class ProfileImageBG extends StatelessWidget {
                 Positioned(
                     top: 30,
                     right: 15,
-                    child: Icon(Icons.settings, size: 36, color: Colors.white,)
+                    child: GestureDetector(
+                      onTap: () async {
+                        print(sp.userName);
+                        await sp.uploadPic(context);
+                      },
+                      child: Icon(Icons.settings, size: 36, color: Colors.white,)
+                    )
                 ),
             ]);
   }
