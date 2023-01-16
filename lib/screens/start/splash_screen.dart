@@ -20,9 +20,9 @@ class _SplashScreenState extends State<SplashScreen>
 
   // init state
   @override
-  void initState() async {
+  void initState() {
     final sp = context.read<SignInProvider>();
-    await sp.checkSignInUser();
+    sp.checkSignInUser();
     super.initState();
 
     _controller = AnimationController(
