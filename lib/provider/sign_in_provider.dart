@@ -9,6 +9,7 @@ import 'package:meeds/screens/start/signup_page.dart';
 import 'package:meeds/utils/next_screen.dart';
 import 'package:meeds/utils/storage.dart';
 import 'package:meeds/widgets/bnb_screen.dart';
+import 'package:meeds/widgets/restart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInProvider extends ChangeNotifier {
@@ -212,6 +213,10 @@ class SignInProvider extends ChangeNotifier {
               nextScreen(context, SignUpPage());
               break;
 
+            case "Restart":
+              RestartWidget.restartApp(context);
+              break;
+
             default:
               print("error ${message}");
           }
@@ -241,7 +246,7 @@ class SignInProvider extends ChangeNotifier {
 
     storage.uploadToCloud(filePath, fileName).then(
       print ("doone:D"),
-      this.showSnackbar("To see the changes, logout and login again.", "", context)
+      this.showSnackbar("To see the changes, restart app.", "Restart", context)
     );
   }
 }
