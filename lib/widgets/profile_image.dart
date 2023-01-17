@@ -5,14 +5,21 @@ import 'package:flutter/material.dart';
 import 'package:meeds/provider/sign_in_provider.dart';
 import 'package:provider/provider.dart';
 
-class ProfileImageBG extends StatelessWidget {
+class ProfileImageBG extends StatefulWidget {
   String? text;
   bool non_profile;
   ProfileImageBG({super.key, this.text, required this.non_profile});
 
   @override
+  State<ProfileImageBG> createState() => _ProfileImageBGState();
+}
+
+class _ProfileImageBGState extends State<ProfileImageBG> {
+  @override
   Widget build(BuildContext context) {
     final sp = context.read<SignInProvider>();
+
+    String profile_pic = sp.userProfilePic;
 
     final double coverHeight = 200;
     final double avatarHeight = 144;
@@ -34,7 +41,7 @@ class ProfileImageBG extends StatelessWidget {
                   ),
                 ),
               ),
-              text != null ? Center(child: Text(text.toString(), style: TextStyle(
+              widget.text != null ? Center(child: Text(widget.text.toString(), style: TextStyle(
                 fontSize: 48,
                 fontWeight: FontWeight.bold,
                 color: Colors.grey.shade300
@@ -50,7 +57,7 @@ class ProfileImageBG extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: avatarHeight / 2,
-            backgroundImage: NetworkImage(sp.userProfilePic),
+            backgroundImage: NetworkImage(profile_pic),
           ),
           SizedBox(height: 10,),
         ],
@@ -62,7 +69,7 @@ class ProfileImageBG extends StatelessWidget {
               alignment: Alignment.center,
               children: [
                 buildCoverImage(),
-                !this.non_profile ? 
+                !this.widget.non_profile ? 
                 Positioned(
                   top: top,
                   child: buildProfileImage()
@@ -72,8 +79,10 @@ class ProfileImageBG extends StatelessWidget {
                     right: 15,
                     child: GestureDetector(
                       onTap: () async {
-                        print(sp.userName);
-                        await sp.uploadPic(context);
+                        print(sp.userName);setState(() async {                          
+                          profile_pic = await sp.uploadPic(context);
+                          print(profile_pic);
+                        });
                       },
                       child: Icon(Icons.settings, size: 36, color: Colors.white,)
                     )

@@ -146,6 +146,8 @@ class SignInProvider extends ChangeNotifier {
           _user_email  = snapshot['email'];
           _user_profile_pic  = snapshot['photoURL'];
     });
+
+    notifyListeners();
   }
 
   Future<bool> checkUserExists(uid) async {
@@ -164,7 +166,7 @@ class SignInProvider extends ChangeNotifier {
   Future checkSignInUser() async {
     final SharedPreferences s = await SharedPreferences.getInstance();
 
-    if (s.containsKey("email") && s.containsKey("name") && s.containsKey("uid") ) {
+    if (s.containsKey("email") && s.containsKey("name") && s.containsKey("uid") && s.containsKey("photoURL") ) {
       _isSignedIn = true;
       _user_email = await s.getString("email").toString();
       _user_name = await s.getString("name").toString();
@@ -231,22 +233,20 @@ class SignInProvider extends ChangeNotifier {
   }
 
   uploadPic(context) async {
-    print(_user_name);
     final results = await FilePicker.platform.pickFiles(
       allowMultiple: false,
     );
 
     if ( results == null ){
-      showSnackbar("Cannpt upload null", "Try again", context);
+      showSnackbar("Cannot upload null", "Try again", context);
       return null; 
     }
 
     final filePath = results.files.single.path.toString();
     final fileName = _user_email;
 
-    storage.uploadToCloud(filePath, fileName).then(
-      print ("doone:D"),
-      this.showSnackbar("To see the changes, restart app.", "Restart", context)
-    );
+    _user_profile_pic = storage.uploadToCloud(filePath, fileName);
+    print(_user_profile_pic);
+    return _user_profile_pic;
   }
 }

@@ -10,8 +10,7 @@ class Storage {
     File file = File(filePath);
 
     try {
-      await storage.ref("/profile_pictures/$fileName").putFile(file);
-
+      return await storage.ref("/profile_pictures/$fileName").putFile(file).snapshot.ref.getDownloadURL().toString();
     } on firebase_core.FirebaseException catch ( error ) {
       print (error);
     }

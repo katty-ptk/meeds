@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen>
     // timer for 2 seconds
     Timer(const Duration(seconds: 2), () {
       sp.userEmail != ""
-          ? nextScreenReplace(context, NavigationScreen())
+          ? nextScreenReplace(context, NavigationScreen())  // home screen
           : nextScreenReplace(context, LandingPage());
     });
     _controller.forward();
