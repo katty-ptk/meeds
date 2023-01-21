@@ -1,13 +1,27 @@
+// ignore_for_file: must_be_immutable
+
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:meeds/provider/sign_in_provider.dart';
+import 'package:provider/provider.dart';
 
-class ProfileImageBG extends StatelessWidget {
-  const ProfileImageBG({super.key});
+class ProfileImageBG extends StatefulWidget {
+  String? text;
+  bool non_profile;
+  ProfileImageBG({super.key, this.text, required this.non_profile});
 
   @override
+  State<ProfileImageBG> createState() => _ProfileImageBGState();
+}
+
+class _ProfileImageBGState extends State<ProfileImageBG> {
+  @override
   Widget build(BuildContext context) {
-    final double coverHeight = 230;
+    final sp = context.read<SignInProvider>();
+
+    String profile_pic = sp.userProfilePic;
+
+    final double coverHeight = 200;
     final double avatarHeight = 144;
     final top = coverHeight - avatarHeight / 2;
 
@@ -23,10 +37,15 @@ class ProfileImageBG extends StatelessWidget {
                   imageFilter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
                   child: Container(
                     color: Colors.grey.withOpacity(1),
-                    child: Image.network("https://images.unsplash.com/photo-1528183429752-a97d0bf99b5a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80", width: double.infinity, fit: BoxFit.cover),
+                    child: Image.network("https://images.unsplash.com/photo-1557100955-93b2fb57c317?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80", width: double.infinity, fit: BoxFit.cover),
                   ),
                 ),
               ),
+              widget.text != null ? Center(child: Text(widget.text.toString(), style: TextStyle(
+                fontSize: 48,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey.shade300
+              ),)) : Text("")
             ],
           ),
         )
@@ -38,7 +57,7 @@ class ProfileImageBG extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: avatarHeight / 2,
-            backgroundImage: NetworkImage("https://blog-pixomatic.s3.appcnt.com/image/22/01/26/61f166e07f452/_orig/pixomatic_1572877263963.png"),
+            backgroundImage: NetworkImage(profile_pic),
           ),
           SizedBox(height: 10,),
         ],
@@ -50,14 +69,23 @@ class ProfileImageBG extends StatelessWidget {
               alignment: Alignment.center,
               children: [
                 buildCoverImage(),
+                !this.widget.non_profile ? 
                 Positioned(
                   top: top,
                   child: buildProfileImage()
-                ),
+                ) : Container(),
                 Positioned(
                     top: 30,
                     right: 15,
-                    child: Icon(Icons.settings, size: 36, color: Colors.white,)
+                    child: GestureDetector(
+                      onTap: () async {
+                        print(sp.userName);setState(() async {                          
+                          profile_pic = await sp.uploadPic(context);
+                          print(profile_pic);
+                        });
+                      },
+                      child: Icon(Icons.settings, size: 36, color: Colors.white,)
+                    )
                 ),
             ]);
   }

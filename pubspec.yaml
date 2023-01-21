@@ -45,6 +45,8 @@ dependencies:
   rounded_loading_button: ^2.1.0
   connectivity_plus: ^3.0.2
   curved_navigation_bar: ^1.0.3
+  firebase_storage: ^11.0.10
+  file_picker: ^5.2.5
 
 dev_dependencies:
   flutter_test:

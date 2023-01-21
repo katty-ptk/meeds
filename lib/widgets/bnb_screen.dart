@@ -1,9 +1,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:meeds/screens/app/add_meds.dart';
+import 'package:meeds/screens/app/add_new/add_new.dart';
 import 'package:meeds/screens/app/home_screen.dart';
 import 'package:meeds/screens/app/profile/profile.dart';
-import 'package:meeds/utils/colors.dart';
+import 'package:meeds/utils/meeds_colors.dart';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({super.key});
@@ -17,7 +17,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
 
   final screens = [
     HomeScreen(),
-    AddMedsScreen(),
+    AddNew(),
     ProfileScreen()
   ];
 
@@ -37,9 +37,9 @@ class _NavigationScreenState extends State<NavigationScreen> {
           tab_index = index;
         }),
         items: [
-          Icon(Icons.home_filled, color: tab_index == 0 ? Colors.black : Colors.white,),
-          Icon(Icons.add_circle_sharp, color: tab_index == 1 ? Colors.black : Colors.white,),
-          Icon(Icons.person, color: tab_index == 2 ? Colors.black : Colors.white,)
+          Icon(Icons.home_filled, color: tab_index == 0 ? MyColors.dark_purple : Colors.white,),
+          Icon(Icons.add_circle_sharp, color: tab_index == 1 ? MyColors.dark_purple : Colors.white,),
+          Icon(Icons.person, color: tab_index == 2 ? MyColors.dark_purple : Colors.white,)
         ],
       ),
     );
