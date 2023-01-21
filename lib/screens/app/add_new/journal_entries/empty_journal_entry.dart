@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:meeds/utils/meeds_colors.dart';
 import 'package:meeds/utils/next_screen.dart';
 import 'package:meeds/widgets/bnb_screen.dart';
 import 'package:meeds/widgets/profile_image.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EmptyJournalEntry extends StatefulWidget {
   const EmptyJournalEntry({super.key});
@@ -12,8 +14,33 @@ class EmptyJournalEntry extends StatefulWidget {
 }
 
 class _EmptyJournalEntryState extends State<EmptyJournalEntry> {
+  String entry_text = "";
+  
   @override
   Widget build(BuildContext context) {
+
+    handleSave() async {
+      final sp = await SharedPreferences.getInstance();
+      DocumentReference ref = FirebaseFirestore.instance.collection("journal_entries").doc(sp.getString("email"));
+
+      ref.set({
+        "${DateTime.now().millisecondsSinceEpoch}": {
+          "title": "title of entry",
+          "data": entry_text
+        },
+      },
+      SetOptions(
+        merge: true
+      )
+      ).then( ( value ) {
+        print("added it! :D");
+      }
+      );
+
+      print(entry_text);
+      nextScreenReplace(context, NavigationScreen());
+    }
+
     return Scaffold(
       body: SafeArea(
         child: ListView(
@@ -36,6 +63,11 @@ class _EmptyJournalEntryState extends State<EmptyJournalEntry> {
                   ),
                   SizedBox(height: 30,),
                   TextFormField(
+                      onChanged: (value) {
+                        setState(() {
+                          entry_text = value.characters.toString();
+                        });
+                      },
                       decoration: InputDecoration(
                         hintText: "Start typing here...",
                       ),
@@ -47,9 +79,7 @@ class _EmptyJournalEntryState extends State<EmptyJournalEntry> {
                     Center(
                       child: FloatingActionButton(
                         backgroundColor: MyColors.dark_purple,
-                        onPressed: () {
-                          nextScreenReplace(context, NavigationScreen());
-                        },
+                        onPressed: handleSave,
                         child: Icon(
                           Icons.check,
                           size: 25,
