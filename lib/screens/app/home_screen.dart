@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:meeds/provider/sign_in_provider.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,7 +12,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text("Home Page", style: TextStyle(
+    final sp = context.read<SignInProvider>();
+
+    return Center(child: Text("${sp.userEmail}", style: TextStyle(
       fontSize: 32,
       fontWeight: FontWeight.bold
     ),));

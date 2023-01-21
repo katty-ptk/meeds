@@ -3,12 +3,15 @@ import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
 import 'package:meeds/provider/sign_in_provider.dart';
 import 'package:meeds/screens/start/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:meeds/widgets/restart.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();  
-  runApp(MyApp());
+  runApp(RestartWidget(
+        child:  MyApp()
+      ),);
 }
 
 class MyApp extends StatelessWidget {

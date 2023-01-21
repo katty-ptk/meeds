@@ -22,6 +22,7 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     final sp = context.read<SignInProvider>();
+    sp.checkSignInUser();
     super.initState();
 
     _controller = AnimationController(
@@ -30,8 +31,8 @@ class _SplashScreenState extends State<SplashScreen>
     );
     // timer for 2 seconds
     Timer(const Duration(seconds: 2), () {
-      sp.isSignedIn
-          ? nextScreenReplace(context, NavigationScreen())
+      sp.userEmail != ""
+          ? nextScreenReplace(context, NavigationScreen())  // home screen
           : nextScreenReplace(context, LandingPage());
     });
     _controller.forward();
