@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
-import 'package:meeds/provider/sign_in.service.dart';
+import 'package:meeds/services/sign_in.service.dart';
 import 'package:meeds/screens/start/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:meeds/widgets/restart.dart';
