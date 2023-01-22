@@ -1,9 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:meeds/services/firestore.service.dart';
 import 'package:meeds/utils/meeds_colors.dart';
 import 'package:meeds/utils/next_screen.dart';
 import 'package:meeds/widgets/bnb_screen.dart';
 import 'package:meeds/widgets/profile_image.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class EmptyJournalEntry extends StatefulWidget {
@@ -21,23 +22,16 @@ class _EmptyJournalEntryState extends State<EmptyJournalEntry> {
 
     handleSave() async {
       final sp = await SharedPreferences.getInstance();
-      DocumentReference ref = FirebaseFirestore.instance.collection("journal_entries").doc(sp.getString("email"));
+      final _email = await sp.getString("email");
 
-      ref.set({
-        "${DateTime.now().millisecondsSinceEpoch}": {
-          "title": "title of entry",
-          "data": entry_text
-        },
-      },
-      SetOptions(
-        merge: true
-      )
-      ).then( ( value ) {
-        print("added it! :D");
-      }
+      final FirestoreService firestoreService = context.read<FirestoreService>();
+
+      await firestoreService.addJournalEntry(
+        entry_text,
+        _email,
+        "plain"
       );
 
-      print(entry_text);
       nextScreenReplace(context, NavigationScreen());
     }
 

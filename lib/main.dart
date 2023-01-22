@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_size/flutter_keyboard_size.dart';
+import 'package:meeds/services/firestore.service.dart';
 import 'package:meeds/services/sign_in.service.dart';
 import 'package:meeds/screens/start/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => SignInProvider()),
+        ChangeNotifierProvider(create: (context) => FirestoreService()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
