@@ -2,7 +2,7 @@
 
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:meeds/provider/sign_in_provider.dart';
+import 'package:meeds/provider/sign_in.service.dart';
 import 'package:provider/provider.dart';
 
 class ProfileImageBG extends StatefulWidget {

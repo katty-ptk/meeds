@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meeds/screens/start/signup_page.dart';
 import 'package:provider/provider.dart';
-import '../../provider/sign_in_provider.dart';
+import '../../provider/sign_in.service.dart';
 import '../../widgets/text_logo.dart';
 
 class LoginPage extends StatefulWidget {

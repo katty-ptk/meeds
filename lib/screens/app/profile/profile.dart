@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meeds/provider/sign_in_provider.dart';
+import 'package:meeds/provider/sign_in.service.dart';
 import 'package:meeds/screens/app/profile/tabs/jourmal.dart';
 import 'package:meeds/utils/meeds_colors.dart';
 import 'package:meeds/widgets/option_tab.dart';

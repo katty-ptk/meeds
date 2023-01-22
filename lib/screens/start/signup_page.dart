@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meeds/provider/sign_in_provider.dart';
+import 'package:meeds/provider/sign_in.service.dart';
 import 'package:meeds/screens/start/login_page.dart';
 import 'package:meeds/widgets/text_logo.dart';
 import 'package:provider/provider.dart';
