@@ -36,8 +36,7 @@ class _EmptyJournalEntryState extends State<EmptyJournalEntry> {
     }
 
     return Scaffold(
-      body: SafeArea(
-        child: ListView(
+      body: Column(
           // direction: Axis.vertical,
           children: [
             ProfileImageBG(non_profile: true, text: "Plain"),
@@ -86,7 +85,6 @@ class _EmptyJournalEntryState extends State<EmptyJournalEntry> {
             ),
           ],
         ),
-      ),
     );
   }
 }

@@ -21,7 +21,7 @@ class _ProfileImageBGState extends State<ProfileImageBG> {
 
     String profile_pic = sp.userProfilePic;
 
-    final double coverHeight = 200;
+    final double coverHeight = 250;
     final double avatarHeight = 144;
     final top = coverHeight - avatarHeight / 2;
 
