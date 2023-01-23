@@ -44,7 +44,6 @@ class _JournalEntryState extends State<JournalEntry> {
                 child: Text(
                   "${this.widget.type}",
                   style: TextStyle(
-                    // fontWeight: FontWeight.bold,
                     color: Colors.white,
                     fontSize: 12,
                   ),

@@ -15,6 +15,7 @@ class JournalEntries extends StatefulWidget {
 
 class _JournalEntriesState extends State<JournalEntries> {
   List<String> app_entries = [];
+  List<String> app_types = [];
 
   @override
   void initState() {
@@ -26,23 +27,28 @@ class _JournalEntriesState extends State<JournalEntries> {
     await getJournalEntriesFromFirestore();
    }
 
-    getJournalEntriesFromFirestore() async {
-      final sp = await SharedPreferences.getInstance();
-      List<String> _journal_entries = [];
+  getJournalEntriesFromFirestore() async {
+    final sp = await SharedPreferences.getInstance();
+    List<String> _journal_entries = [];
+    List<String> _journal_types = [];
 
-      final entries = await FirestoreService().getJournalEntryData(
-        sp.getString("email")
-      );
+    final entries = await FirestoreService().getJournalEntryData(
+      sp.getString("email")
+    );
 
-      if ( entries.isNotEmpty ) {
-        entries.forEach((element) {
-          _journal_entries.add(element["data"]);
-        },);
-      }
+    if ( entries.isNotEmpty ) {
+      entries.forEach((element) {
+        _journal_entries.add(element["data"]);
+        _journal_types.add(element["journal_entry_type"]);
+      },);
+    }
 
-      setState(() {
-        app_entries = _journal_entries;
-      });
+    print(_journal_types);
+
+    setState(() {
+      app_entries = _journal_entries;
+      app_types = _journal_types;
+    });
   }
 
   @override
@@ -60,13 +66,13 @@ class _JournalEntriesState extends State<JournalEntries> {
                     SizedBox(
                       height: 500,
                       child: ListView.builder(
-                        itemCount: 5,
+                        itemCount: app_entries.length,
                         itemBuilder: ( context, index ) {
                           return ListTile(
                             title: JournalEntry(
                               data: app_entries[index], 
                               date: "${DateTime.now().toString()}",
-                              type: "plain",
+                              type: app_types[index],
                             ),
                           );
                         }),
