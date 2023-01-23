@@ -8,12 +8,13 @@ import '../utils/next_screen.dart';
 class OptionTab extends StatelessWidget {
   String text;
   Widget page;
+  
   OptionTab({super.key, required this.text, required this.page});
 
   @override
   Widget build(BuildContext context) {
       return GestureDetector(
-        onTap: () {
+        onTap: () async {
           nextScreen(context, page);
         },
         child: Stack(

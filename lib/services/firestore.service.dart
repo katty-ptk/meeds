@@ -24,5 +24,18 @@ class FirestoreService extends ChangeNotifier {
       )
     ).then((value) => print("added journal entry! :D"));
   }
+
+  Future<List> getJournalEntryData( String? doc_id ) async {
+    final doc = await firestore.collection(firestorePaths.journal_entries_types["JOURNAL_ENTRIES_COLLECTION"]).doc(doc_id).get();
+
+    final doc_entries = doc.data()!;
+    List entries = [];
+
+    doc_entries.forEach((key, value) => 
+      entries.add(doc_entries[key])
+    );
+
+    return entries;
+  }
   
 }
