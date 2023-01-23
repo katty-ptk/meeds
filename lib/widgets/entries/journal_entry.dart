@@ -34,15 +34,20 @@ class _JournalEntryState extends State<JournalEntry> {
                 ),
               ),
 
-              Text(
-                "${this.widget.type}",
-                style: TextStyle(
-                  // fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                  fontSize: 12,
-                  background: Paint()..color = MyColors.dark_purple
-                  ..strokeWidth = 15
-                  ..style = PaintingStyle.stroke,
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+                // color: Colors.red,
+                decoration: BoxDecoration(
+                  color: MyColors.dark_purple,
+                  borderRadius: BorderRadius.all(Radius.circular(5))
+                ),
+                child: Text(
+                  "${this.widget.type}",
+                  style: TextStyle(
+                    // fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontSize: 12,
+                  ),
                 ),
               )
             ],
