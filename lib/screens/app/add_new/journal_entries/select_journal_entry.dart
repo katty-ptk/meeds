@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:meeds/screens/app/add_new/journal_entries/gratitude_journal_entry.dart';
+import 'package:meeds/services/sign_in.service.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../widgets/option_tab.dart';
 import '../../../../widgets/profile_image.dart';
@@ -10,6 +13,8 @@ class SelectJournalEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sp = context.read<SignInProvider>();
+
     return Scaffold(
       body: Column(
         // direction: Axis.vertical,
@@ -20,7 +25,7 @@ class SelectJournalEntry extends StatelessWidget {
             Container(
               padding: EdgeInsets.only(top: 100, left: 30, right: 30),
               child: Text(
-                "Hi, katty! 😊",
+                "Hi, ${sp.userName}! 😊",
                 textAlign: TextAlign.left,
                 style: TextStyle(
                   fontSize: 24

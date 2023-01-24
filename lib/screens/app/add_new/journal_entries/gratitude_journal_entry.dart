@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:meeds/utils/meeds_colors.dart';
-import 'package:meeds/widgets/entries/journal_entry.dart';
 import 'package:meeds/widgets/profile_image.dart';
 
 class GratitudeJournalEntry extends StatefulWidget {
