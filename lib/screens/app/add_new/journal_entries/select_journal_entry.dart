@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:meeds/screens/app/add_new/journal_entries/gratitude_journal_entry.dart';
 import 'package:meeds/services/sign_in.service.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../widgets/option_tab.dart';
 import '../../../../widgets/profile_image.dart';
