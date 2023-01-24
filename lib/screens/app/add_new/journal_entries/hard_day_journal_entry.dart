@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:meeds/utils/meeds_colors.dart';
-import 'package:meeds/widgets/profile_image.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../services/firestore.service.dart';
+import '../../../../utils/meeds_colors.dart';
 import '../../../../utils/next_screen.dart';
 import '../../../../widgets/bnb_screen.dart';
+import '../../../../widgets/profile_image.dart';
 
-class GratitudeJournalEntry extends StatefulWidget {
-  const GratitudeJournalEntry({super.key});
+class HardDayJournalEntry extends StatefulWidget {
+  const HardDayJournalEntry({super.key});
 
   @override
-  State<GratitudeJournalEntry> createState() => _GratitudeJournalEntryState();
+  State<HardDayJournalEntry> createState() => _HardDayJournalEntryState();
 }
 
-class _GratitudeJournalEntryState extends State<GratitudeJournalEntry> {
+class _HardDayJournalEntryState extends State<HardDayJournalEntry> {
   String entry_text = "";
   String what = "";
   String why = "";
@@ -33,25 +33,24 @@ class _GratitudeJournalEntryState extends State<GratitudeJournalEntry> {
     await firestoreService.addJournalEntry(
       entry_text,
       _email,
-      "gratitude"
+      "hard_day"
     );
 
     nextScreenReplace(context, NavigationScreen());
   }
-
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
         padding: EdgeInsets.zero,
         children: [
-          ProfileImageBG(non_profile: true, text: "Gratitude",),
+          ProfileImageBG(non_profile: true, text: "Hard Day",),
           SizedBox(height: 40,),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Text(
-              '“When we focus on our gratitude, the tide of disappointment goes out and the tide of love rushes in.“',
+              '“It is just a bad day, not a bad life.“',
               style: TextStyle(
                 fontSize: 24,
                 color: Colors.grey.shade500,
@@ -84,11 +83,11 @@ class _GratitudeJournalEntryState extends State<GratitudeJournalEntry> {
                         width: 2
                       )
                     ),
-                    label: Text("What are you grateful for?"),
+                    label: Text("What made this day hard?"),
                     labelStyle: TextStyle(
                       color: MyColors.dark_purple
                     ),
-                    hintText: "😉: I am grateful for ...",
+                    hintText: "🙃: This day is hard because ...",
                   ),
                 ),
               ),
@@ -112,11 +111,11 @@ class _GratitudeJournalEntryState extends State<GratitudeJournalEntry> {
                         width: 2
                       )
                     ),
-                    label: Text("Why are you grateful for this?"),
+                    label: Text("Why do you feel sad about it?"),
                     labelStyle: TextStyle(
                       color: MyColors.dark_purple
                     ),
-                    hintText: "😉: Because it helpes me ...",
+                    hintText: "🙃: I feel sad because ...",
                   ),
                 ),
               ),
@@ -144,7 +143,7 @@ class _GratitudeJournalEntryState extends State<GratitudeJournalEntry> {
                     labelStyle: TextStyle(
                       color: MyColors.dark_purple
                     ),
-                    hintText: "😉: This makes me feel ...",
+                    hintText: "🙃: I know I will be okay.",
                   ),
                 ),
               ),

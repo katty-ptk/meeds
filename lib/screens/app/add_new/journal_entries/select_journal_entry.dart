@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meeds/screens/app/add_new/journal_entries/gratitude_journal_entry.dart';
+import 'package:meeds/screens/app/add_new/journal_entries/hard_day_journal_entry.dart';
 import 'package:meeds/services/sign_in.service.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +17,6 @@ class SelectJournalEntry extends StatelessWidget {
 
     return Scaffold(
       body: Column(
-        // direction: Axis.vertical,
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -50,7 +50,7 @@ class SelectJournalEntry extends StatelessWidget {
                   SizedBox(height: 20,),
                   OptionTab(text: "Gratitude", page: GratitudeJournalEntry()),
                   SizedBox(height: 20,),
-                  OptionTab(text: "Hard Day", page: EmptyJournalEntry()),
+                  OptionTab(text: "Hard Day", page: HardDayJournalEntry()),
                 ],
               ),
             ),
