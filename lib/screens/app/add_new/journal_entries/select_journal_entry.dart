@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meeds/screens/app/add_new/journal_entries/gratitude_journal_entry.dart';
 
 import '../../../../widgets/option_tab.dart';
 import '../../../../widgets/profile_image.dart';
@@ -43,7 +44,7 @@ class SelectJournalEntry extends StatelessWidget {
                 children: [
                   OptionTab(text: "Plain ( no template )", page: EmptyJournalEntry()),
                   SizedBox(height: 20,),
-                  OptionTab(text: "Gratitude", page: EmptyJournalEntry()),
+                  OptionTab(text: "Gratitude", page: GratitudeJournalEntry()),
                   SizedBox(height: 20,),
                   OptionTab(text: "Hard Day", page: EmptyJournalEntry()),
                 ],

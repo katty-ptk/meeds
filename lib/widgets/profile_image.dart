@@ -3,6 +3,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:meeds/services/sign_in.service.dart';
+import 'package:meeds/utils/meeds_colors.dart';
 import 'package:provider/provider.dart';
 
 class ProfileImageBG extends StatefulWidget {
@@ -44,7 +45,7 @@ class _ProfileImageBGState extends State<ProfileImageBG> {
               widget.text != null ? Center(child: Text(widget.text.toString(), style: TextStyle(
                 fontSize: 48,
                 fontWeight: FontWeight.bold,
-                color: Colors.grey.shade300
+                color: MyColors.white
               ),)) : Text("")
             ],
           ),

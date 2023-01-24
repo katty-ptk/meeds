@@ -15,4 +15,5 @@ class HexColor extends Color {
 class MyColors {
   static Color light_pink = HexColor("D4B2E4");
   static Color dark_purple = HexColor("340a61");
+  static Color white = HexColor("FFFFFF");
 }

@@ -36,8 +36,9 @@ class _EmptyJournalEntryState extends State<EmptyJournalEntry> {
     }
 
     return Scaffold(
-      body: Column(
+      body: ListView(
           // direction: Axis.vertical,
+          padding: EdgeInsets.zero,
           children: [
             ProfileImageBG(non_profile: true, text: "Plain"),
             Padding(
