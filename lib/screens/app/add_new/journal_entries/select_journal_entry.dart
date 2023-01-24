@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:meeds/screens/app/add_new/journal_entries/gratitude_journal_entry.dart';
+import 'package:meeds/screens/app/add_new/journal_entries/hard_day_journal_entry.dart';
+import 'package:meeds/services/sign_in.service.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../widgets/option_tab.dart';
 import '../../../../widgets/profile_image.dart';
@@ -9,10 +13,10 @@ class SelectJournalEntry extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final sp = context.read<SignInProvider>();
+
     return Scaffold(
-      body: SafeArea(
-        child: Flex(
-        direction: Axis.vertical,
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -20,7 +24,7 @@ class SelectJournalEntry extends StatelessWidget {
             Container(
               padding: EdgeInsets.only(top: 100, left: 30, right: 30),
               child: Text(
-                "Hi, katty! 😊",
+                "Hi, ${sp.userName}! 😊",
                 textAlign: TextAlign.left,
                 style: TextStyle(
                   fontSize: 24
@@ -44,15 +48,14 @@ class SelectJournalEntry extends StatelessWidget {
                 children: [
                   OptionTab(text: "Plain ( no template )", page: EmptyJournalEntry()),
                   SizedBox(height: 20,),
-                  OptionTab(text: "Gratitude", page: EmptyJournalEntry()),
+                  OptionTab(text: "Gratitude", page: GratitudeJournalEntry()),
                   SizedBox(height: 20,),
-                  OptionTab(text: "Hard Day", page: EmptyJournalEntry()),
+                  OptionTab(text: "Hard Day", page: HardDayJournalEntry()),
                 ],
               ),
             ),
           ],
         ),
-      )
     );
   }
 }

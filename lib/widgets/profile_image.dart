@@ -2,7 +2,8 @@
 
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:meeds/provider/sign_in_provider.dart';
+import 'package:meeds/services/sign_in.service.dart';
+import 'package:meeds/utils/meeds_colors.dart';
 import 'package:provider/provider.dart';
 
 class ProfileImageBG extends StatefulWidget {
@@ -21,7 +22,7 @@ class _ProfileImageBGState extends State<ProfileImageBG> {
 
     String profile_pic = sp.userProfilePic;
 
-    final double coverHeight = 200;
+    final double coverHeight = 250;
     final double avatarHeight = 144;
     final top = coverHeight - avatarHeight / 2;
 
@@ -44,7 +45,7 @@ class _ProfileImageBGState extends State<ProfileImageBG> {
               widget.text != null ? Center(child: Text(widget.text.toString(), style: TextStyle(
                 fontSize: 48,
                 fontWeight: FontWeight.bold,
-                color: Colors.grey.shade300
+                color: MyColors.white
               ),)) : Text("")
             ],
           ),

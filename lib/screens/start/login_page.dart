@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:meeds/screens/start/signup_page.dart';
+import 'package:meeds/utils/meeds_colors.dart';
 import 'package:provider/provider.dart';
-import '../../provider/sign_in_provider.dart';
+import '../../services/sign_in.service.dart';
 import '../../widgets/text_logo.dart';
 
 class LoginPage extends StatefulWidget {
@@ -137,7 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SignUpPage()));
                                           },
                                           child: Text(' Sign Up', style: TextStyle(
-                                            color: Colors.green[600],
+                                            color: MyColors.light_pink,
                                             fontWeight: FontWeight.bold,
                                             fontFamily: 'Montserrat',
                                           ),),
@@ -166,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                             decoration: BoxDecoration(
                             color: Colors.black,
                             borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15))),
-                            child: Icon(Icons.arrow_forward_ios_rounded, color: Colors.green[600], size: 30,),
+                            child: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white, size: 30,),
                           ),
                         ),
                         ),

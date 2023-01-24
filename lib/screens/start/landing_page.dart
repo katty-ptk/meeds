@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meeds/screens/start/login_page.dart';
+import 'package:meeds/utils/meeds_colors.dart';
 import 'package:meeds/utils/next_screen.dart';
 import './signup_page.dart';
 
@@ -8,7 +9,6 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color green = Colors.green.shade600;
     Color black = Colors.black87;
     
     return Scaffold(
@@ -36,7 +36,7 @@ class LandingPage extends StatelessWidget {
                   TextSpan(
                     text: 'meeds', 
                     style: TextStyle(
-                      color: Colors.green,
+                      color: MyColors.dark_purple,
                       fontStyle: FontStyle.italic
                     )
                   ),
@@ -101,7 +101,7 @@ class LandingPage extends StatelessWidget {
             'Want to learn more?',
             style: TextStyle(
               decoration: TextDecoration.underline,
-              color: green,
+              color: MyColors.light_pink,
               fontFamily: 'Montserrat-Bold',
               letterSpacing: 0.7
             ),

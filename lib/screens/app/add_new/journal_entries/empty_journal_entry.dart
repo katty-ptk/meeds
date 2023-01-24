@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:meeds/services/firestore.service.dart';
 import 'package:meeds/utils/meeds_colors.dart';
 import 'package:meeds/utils/next_screen.dart';
 import 'package:meeds/widgets/bnb_screen.dart';
 import 'package:meeds/widgets/profile_image.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class EmptyJournalEntry extends StatefulWidget {
   const EmptyJournalEntry({super.key});
@@ -12,12 +15,30 @@ class EmptyJournalEntry extends StatefulWidget {
 }
 
 class _EmptyJournalEntryState extends State<EmptyJournalEntry> {
+  String entry_text = "";
+  
   @override
   Widget build(BuildContext context) {
+
+    handleSave() async {
+      final sp = await SharedPreferences.getInstance();
+      final _email = await sp.getString("email");
+
+      final FirestoreService firestoreService = context.read<FirestoreService>();
+
+      await firestoreService.addJournalEntry(
+        entry_text,
+        _email,
+        "plain"
+      );
+
+      nextScreenReplace(context, NavigationScreen());
+    }
+
     return Scaffold(
-      body: SafeArea(
-        child: ListView(
+      body: ListView(
           // direction: Axis.vertical,
+          padding: EdgeInsets.zero,
           children: [
             ProfileImageBG(non_profile: true, text: "Plain"),
             Padding(
@@ -36,6 +57,11 @@ class _EmptyJournalEntryState extends State<EmptyJournalEntry> {
                   ),
                   SizedBox(height: 30,),
                   TextFormField(
+                      onChanged: (value) {
+                        setState(() {
+                          entry_text = value.characters.toString();
+                        });
+                      },
                       decoration: InputDecoration(
                         hintText: "Start typing here...",
                       ),
@@ -47,9 +73,7 @@ class _EmptyJournalEntryState extends State<EmptyJournalEntry> {
                     Center(
                       child: FloatingActionButton(
                         backgroundColor: MyColors.dark_purple,
-                        onPressed: () {
-                          nextScreenReplace(context, NavigationScreen());
-                        },
+                        onPressed: handleSave,
                         child: Icon(
                           Icons.check,
                           size: 25,
@@ -62,7 +86,6 @@ class _EmptyJournalEntryState extends State<EmptyJournalEntry> {
             ),
           ],
         ),
-      ),
     );
   }
 }

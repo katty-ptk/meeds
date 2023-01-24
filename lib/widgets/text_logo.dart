@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meeds/utils/meeds_colors.dart';
 
 // ignore: must_be_immutable
 class TextLogo extends StatefulWidget {
@@ -28,7 +29,7 @@ class _TextLogoState extends State<TextLogo> {
                   fontSize: 36,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Montserrat',
-                  color: Colors.green.shade600
+                  color: MyColors.dark_purple
           )
         ),
       ],

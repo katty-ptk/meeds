@@ -11,9 +11,8 @@ class AddNew extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Flex(
-        direction: Axis.vertical,
+      body: Column(
+        // direction: Axis.vertical,
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -32,7 +31,6 @@ class AddNew extends StatelessWidget {
             ),
           ],
         ),
-      )
     );
   }
 }

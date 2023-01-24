@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:meeds/provider/sign_in_provider.dart';
+import 'package:meeds/services/sign_in.service.dart';
 import 'package:meeds/screens/start/login_page.dart';
+import 'package:meeds/utils/meeds_colors.dart';
 import 'package:meeds/widgets/text_logo.dart';
 import 'package:provider/provider.dart';
 
@@ -131,7 +132,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginPage()));
                                           },
                                           child: Text(' Login', style: TextStyle(
-                                            color: Colors.green[600],
+                                            color: MyColors.light_pink,
                                             fontWeight: FontWeight.bold,
                                             fontFamily: 'Montserrat',
                                           ),),
@@ -160,7 +161,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             decoration: BoxDecoration(
                             color: Colors.black,
                             borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15))),
-                            child: Icon(Icons.arrow_forward_ios_rounded, color: Colors.green[600], size: 30,),
+                            child: Icon(Icons.arrow_forward_ios_rounded, color: Colors.white, size: 30,),
                           ),
                         ),
                         ),
