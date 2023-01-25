@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meeds/services/sign_in.service.dart';
 import 'package:meeds/screens/app/profile/tabs/journal.dart';
+import 'package:meeds/utils/date.utils.dart';
 import 'package:meeds/utils/meeds_colors.dart';
 import 'package:meeds/widgets/option_tab.dart';
 import 'package:meeds/widgets/profile_image.dart';
@@ -18,7 +19,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     handleLogout() async {
       final sp = context.read<SignInProvider>();
-       
+
       await sp.signOutUser(context);
     }
 
