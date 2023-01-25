@@ -47,6 +47,7 @@ dependencies:
   curved_navigation_bar: ^1.0.3
   firebase_storage: ^11.0.10
   file_picker: ^5.2.5
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:

@@ -16,6 +16,7 @@ class JournalEntries extends StatefulWidget {
 class _JournalEntriesState extends State<JournalEntries> {
   List<String> app_entries = [];
   List<String> app_types = [];
+  List<String> app_dates = [];
 
   @override
   void initState() {
@@ -31,6 +32,7 @@ class _JournalEntriesState extends State<JournalEntries> {
     final sp = await SharedPreferences.getInstance();
     List<String> _journal_entries = [];
     List<String> _journal_types = [];
+    List<String> _journal_dates = [];
 
     final entries = await FirestoreService().getJournalEntryData(
       sp.getString("email")
@@ -40,6 +42,7 @@ class _JournalEntriesState extends State<JournalEntries> {
       entries.forEach((element) {
         _journal_entries.add(element["data"]);
         _journal_types.add(element["journal_entry_type"]);
+        _journal_dates.add(element["date"]);
       },);
     }
 
@@ -48,6 +51,7 @@ class _JournalEntriesState extends State<JournalEntries> {
     setState(() {
       app_entries = _journal_entries;
       app_types = _journal_types;
+      app_dates = _journal_dates;
     });
   }
 
@@ -71,7 +75,7 @@ class _JournalEntriesState extends State<JournalEntries> {
                           return ListTile(
                             title: JournalEntry(
                               data: app_entries[index], 
-                              date: "${DateTime.now().toString()}",
+                              date: "${app_dates[index]}",
                               type: app_types[index],
                             ),
                           );

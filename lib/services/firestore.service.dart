@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:meeds/utils/date.utils.dart';
 import 'package:meeds/utils/firestore_paths.dart';
 
 class FirestoreService extends ChangeNotifier {
@@ -15,6 +16,7 @@ class FirestoreService extends ChangeNotifier {
         "${DateTime.now().millisecondsSinceEpoch}" : {
           "journal_entry_type": journal_entry_type,
           "title": "💕 🌙 🤩",
+          "date": DateUtil().formatDate(DateTime.now()),
           "data": entry_text
         }
       },
