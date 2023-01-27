@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meeds/screens/app/add_new/journal_entries/select_journal_entry.dart';
+import 'package:meeds/screens/app/add_new/reminders/daily_reminder.dart';
 import 'package:meeds/screens/app/profile/profile.dart';
 
 import '../../../widgets/option_tab.dart';
@@ -23,7 +24,7 @@ class AddNew extends StatelessWidget {
                 children: [
                   OptionTab(text: "Journal Entry", page: SelectJournalEntry()),
                   SizedBox(height: 20,),
-                  OptionTab(text: "Daily Reminder", page: ProfileScreen()),
+                  OptionTab(text: "Daily Reminder", page: AddNewDailyReminder()),
                   SizedBox(height: 20,),
                   OptionTab(text: "Medication", page: ProfileScreen()),
                 ],
